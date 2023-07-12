@@ -15,6 +15,9 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
@@ -27,30 +30,36 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     SvgPicture.asset(
                       "assets/login page.svg",
-                      width: 450,
+                      width: screenWidth * 1, // Adjust the width proportionally
                     ),
                     Positioned(
-                        top: 50,
-                        right: 130,
-                        child: Column(
-                          children: [
-                            SvgPicture.asset('assets/logo.svg'),
-                            Text(
-                              "CraftMyPlate",
-                              style: GoogleFonts.lexend(
-                                color: Colors.white,
-                                fontSize: 20,
-                              ),
+                      top: screenHeight *
+                          0.05, // Adjust the top position proportionally
+                      right: screenWidth *
+                          0.31, // Adjust the right position proportionally
+                      child: Column(
+                        children: [
+                          SvgPicture.asset('assets/logo.svg'),
+                          Text(
+                            "CraftMyPlate",
+                            style: GoogleFonts.lexend(
+                              color: Colors.white,
+                              fontSize: screenWidth *
+                                  0.04, // Adjust the font size proportionally
                             ),
-                          ],
-                        ))
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
                 SizedBox(
-                  height: 40,
+                  height:
+                      screenHeight * 0.05, // Adjust the height proportionally
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(30.0),
+                  padding: EdgeInsets.all(
+                      screenWidth * 0.08), // Adjust the padding proportionally
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -58,27 +67,34 @@ class _LoginPageState extends State<LoginPage> {
                         "Login or Signup",
                         style: GoogleFonts.lexend(
                           color: Color(0xff787878),
-                          fontSize: 14,
+                          fontSize: screenWidth *
+                              0.035, // Adjust the font size proportionally
                         ),
                       ),
                     ],
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: screenWidth *
+                          0.08), // Adjust the padding proportionally
                   child: PhoneNumberTextField(),
                 ),
                 SizedBox(
-                  height: 20,
+                  height:
+                      screenHeight * 0.02, // Adjust the height proportionally
                 ),
                 ElevatedButton(
                   onPressed: () {
                     // Handle button press
                   },
                   style: ElevatedButton.styleFrom(
-                    fixedSize: Size(327, 44),
+                    fixedSize: Size(screenWidth * 0.9,
+                        screenHeight * 0.06), // Adjust the size proportionally
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
+                      borderRadius: BorderRadius.circular(screenWidth *
+                          0.02), // Adjust the border radius proportionally
+                    ),
                     primary:
                         Color(0xFF6318AF), // Set background color to #6318AF
                   ),
@@ -86,20 +102,24 @@ class _LoginPageState extends State<LoginPage> {
                     "Continue",
                     style: GoogleFonts.lexend(
                       color: Colors.white,
-                      fontSize: 14,
+                      fontSize: screenWidth *
+                          0.035, // Adjust the font size proportionally
                     ),
                   ),
                 ),
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 20.0),
+              padding: EdgeInsets.only(
+                  bottom:
+                      screenHeight * 0.02), // Adjust the padding proportionally
               child: Text(
-                "By continuing, you agree to our\nTerms of Service Privacy Policy ",
+                "By continuing, you agree to our\nTerms of Service Privacy Policy",
                 textAlign: TextAlign.center,
                 style: GoogleFonts.lexend(
                   color: Color(0xff7B7B7B),
-                  fontSize: 14,
+                  fontSize: screenWidth *
+                      0.035, // Adjust the font size proportionally
                 ),
               ),
             ),

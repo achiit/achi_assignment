@@ -1,5 +1,7 @@
+import 'package:achi_assignment/screens/login%20screen/login.dart';
 import 'package:achi_assignment/screens/login%20screen/namedetails.dart';
 import 'package:achi_assignment/widgets/customkeyboard.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -17,7 +19,7 @@ class MyVerify extends StatefulWidget {
 
 class _MyVerifyState extends State<MyVerify> {
   String enteredOTP = '';
-
+  final FirebaseAuth auth = FirebaseAuth.instance;
   void onKeyPressed(String value) {
     setState(() {
       if (value == 'backspace') {
@@ -58,21 +60,22 @@ class _MyVerifyState extends State<MyVerify> {
       decoration: defaultPinTheme.decoration?.copyWith(color: Colors.red),
     );
 
+    var _isLoading=false;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         centerTitle: true,
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios,
-            color: Colors.black,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+        // leading: IconButton(
+        //   icon: Icon(
+        //     Icons.arrow_back_ios,
+        //     color: Colors.black,
+        //   ),
+        //   onPressed: () {
+        //     Navigator.pop(context);
+        //   },
+        // ),
         title: Text(
           "OTP Verification",
           style: GoogleFonts.lexend(
@@ -150,11 +153,37 @@ class _MyVerifyState extends State<MyVerify> {
                   child: SizedBox(
                     width: double.infinity,
                     height: screenHeight * 0.051,
-                    child: ElevatedButton(
+                    child: _isLoading==true?CircularProgressIndicator(): ElevatedButton(
                       onPressed: () async {
-                        print(enteredOTP);
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Details()));
+                        var finalotp = enteredOTP.substring(0, 6);
+                        print(finalotp);
+                        try {
+                          setState(() {
+                      _isLoading = true;
+                    });
+                          PhoneAuthCredential credential =
+                              PhoneAuthProvider.credential(
+                                  verificationId: LoginPage.verify,
+                                  smsCode: finalotp);
+                          await auth.signInWithCredential(credential);
+                          setState(() {
+                            _isLoading = false;
+                          });
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(builder: (context) => Details()),
+                            (route) => false,
+                          );
+                        } catch (e) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text("Wrong OTP"),
+                              backgroundColor: Colors.green,
+                            ),
+                          );
+                          print("wrong otp");
+                        }
+
                         /* try {
                           PhoneAuthCredential credential =
                               PhoneAuthProvider.credential(

@@ -1,6 +1,6 @@
-
 import 'package:achi_assignment/screens/onboarding/onboarding_main.dart';
 import 'package:flutter/material.dart';
+
 void main() async {
   runApp(const MyApp());
 }
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.orange, /* fontFamily: "Gerbil" */
+        primarySwatch: Colors.purple, /* fontFamily: "Gerbil" */
       ),
       home: const OnboardingScreen(),
     );
